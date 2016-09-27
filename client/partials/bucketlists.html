@@ -1,0 +1,31 @@
+<a href="#/user/{{userid}}">Bucket List</a>
+<a href="">Home</a>
+<a href="" ng-click="logout()">Logout</a>
+<hr>
+<h1>Welcome {{username}}!</h1>
+<form name="bform">
+	<input type="text" placeholder="Title" ng-model="bucket.title" name="title" ng-minlength="5" required>
+	<input type="text" placeholder="Description" ng-model="bucket.description" name="desc" ng-minlength="10" required>
+	<select ng-model="bucket.tagged">
+		<option ng-repeat="user in users" value="{{user._id}}" ng-if="user.name !== username">{{user.name}}</option>
+	</select>
+	<input type="submit" value="Add to List" ng-click="createBucket(bucket)">
+</form>
+<div ng-messages="bform.title.$error">
+     <p ng-message="minlength">Title must be at least 5 Characters.</p>
+     <p ng-message="required">Title required.</p>
+</div>
+<div ng-messages="bform.desc.$error">
+     <p ng-message="minlength">Description must be at least 10 Characters.</p>
+     <p ng-message="required">Description required.</p>
+</div>
+<h3>Before I die I want to...</h3>
+<div ng-repeat="bucket in buckets">
+	<p ng-if="bucket.checkbox == 'yes'"><input type="checkbox" checked>{{bucket._user.name}}: {{bucket.title}} - {{bucket.description}} | {{bucket.createdAt}}</p>
+</div>
+<div ng-repeat="bucket in buckets">
+	<p ng-if="bucket.checkbox == 'no'"><input type="checkbox">{{bucket._user.name}}: {{bucket.title}} - {{bucket.description}} | {{bucket.createdAt}}</p>
+</div>
+<br>
+<h3>List of other Users(Click to View Profile)</h3>
+<p ng-repeat="user in users"><a href="#/user/{{user._id}}" ng-if="user.name !== username">{{user.name}}</a></p>

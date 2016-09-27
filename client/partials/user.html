@@ -1,0 +1,19 @@
+<a href="#/user/{{userid}}">Bucket List</a>
+<a href="#/bucketlist">Home</a>
+<a href="" ng-click="logout()">Logout</a>
+<hr>
+<h1>{{user.name}}'s Bucket List</h1>
+
+<h3>Done:</h3>
+<div ng-repeat="bucket in user.buckets">
+	<p ng-if="bucket.checkbox == 'yes'">
+		<input type="checkbox" checked>{{bucket.username}}: {{bucket.title}} - {{bucket.description}} | {{bucket.createdAt}}
+	</p>
+</div>
+<br>
+<h3>Pending:</h3>
+<div ng-repeat="bucket in user.buckets">
+	<p ng-if="bucket.checkbox == 'no'">
+		<input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="ticked.val" ng-change="check(ticked, bucket._id)">{{bucket.username}}: {{bucket.title}} - {{bucket.description}} | {{bucket.createdAt}}
+	</p>
+</div>
